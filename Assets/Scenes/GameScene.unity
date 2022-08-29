@@ -789,7 +789,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6449881917346510578, guid: 9d3dd4a89fcab2d488c7b61c3aceb674, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 6449881917346510578, guid: 9d3dd4a89fcab2d488c7b61c3aceb674, type: 3}
       propertyPath: m_LocalPosition.z
@@ -825,6 +825,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d3dd4a89fcab2d488c7b61c3aceb674, type: 3}
+--- !u!4 &590172712 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6449881917346510578, guid: 9d3dd4a89fcab2d488c7b61c3aceb674, type: 3}
+  m_PrefabInstance: {fileID: 590172705}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &592466441 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8582813174041624708, guid: 21ed2ff5b536d66478d7f78a36f4302b, type: 3}
@@ -1151,6 +1156,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1255,6 +1261,19 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb2277d0a0a71dd4ea0a108152968db1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 590172712}
 --- !u!1001 &989618150
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3174,10 +3193,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3753072917200976058, guid: 66b73c1f83d449c47a2b260fe7633d58, type: 3}
-      propertyPath: _foodCountMax
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 8127933545907976910, guid: 66b73c1f83d449c47a2b260fe7633d58, type: 3}
       propertyPath: m_RootOrder
       value: 3
