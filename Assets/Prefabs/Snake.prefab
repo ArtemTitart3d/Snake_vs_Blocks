@@ -251,6 +251,7 @@ MonoBehaviour:
   Sensitivity: 50
   Length: 1
   PointsText: {fileID: 561942575898019253}
+  Game: {fileID: 0}
 --- !u!114 &590172708
 MonoBehaviour:
   m_ObjectHideFlags: 0

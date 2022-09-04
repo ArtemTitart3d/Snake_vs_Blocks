@@ -8,10 +8,12 @@ public class SnakeTail : MonoBehaviour
 
     private List<Transform> snakeCircles = new List<Transform>();
     private List<Vector3> positions = new List<Vector3>();
+    private SnakeMovement SnakeMovement;
 
     private void Awake()
     {
         positions.Add(SnakeHead.position);
+        SnakeMovement = GetComponent<SnakeMovement>();
     }
 
     private void Update()
@@ -44,8 +46,9 @@ public class SnakeTail : MonoBehaviour
 
     public void RemoveCircle()
     {
-        Destroy(snakeCircles[0].gameObject);
-        snakeCircles.RemoveAt(0);
-        positions.RemoveAt(1);
+        Destroy(snakeCircles[SnakeMovement.Length].gameObject);
+        snakeCircles.RemoveAt(SnakeMovement.Length);
+        positions.RemoveAt(SnakeMovement.Length + 1);
+        
     }
 }

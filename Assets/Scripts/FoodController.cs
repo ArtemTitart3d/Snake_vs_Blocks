@@ -6,10 +6,12 @@ using UnityEngine;
 public class FoodController : MonoBehaviour
 {
     public TextMeshPro HPText;
-    private int FoodCount;
+    [HideInInspector] public int FoodCount;
     [SerializeField] private int _foodCountMin;
     [SerializeField] private int _foodCountMax;
+    [SerializeField] private GameObject _food;
     
+
 
     void SetFoodCount()
     {
@@ -18,10 +20,22 @@ public class FoodController : MonoBehaviour
         
         
     }
+  
 
     private void Awake()
     {
-        SetFoodCount();
+         SetFoodCount();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out SnakeMovement Snake))
+        {
+            Snake.GrowLenght(FoodCount);
+            Destroy(HPText);
+            Destroy(_food);
+
+        }
+        
+    }
 }

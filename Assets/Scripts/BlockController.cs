@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class BlockController : MonoBehaviour
@@ -27,5 +28,26 @@ public class BlockController : MonoBehaviour
         SetBlockCount();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out SnakeMovement Snake))
+        {
+            if (BlockStrength < Snake.Length)
+            {
+                
+                Snake.ReduceLenght(BlockStrength);
+                Destroy(_block);
+                Destroy(BlockStrengthText);
+            }
+            else
+            {
+                Snake.Die();
+                Debug.Log(BlockStrength);
+            }
+            
+
+        }
+        
+    }
 
 }
