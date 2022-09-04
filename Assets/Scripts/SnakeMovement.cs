@@ -97,4 +97,9 @@ public class SnakeMovement : MonoBehaviour
         Game.OnPlayerDied();
         
     }
+    public void Win()
+    {
+        Game.OnPlayerReachedFinish();
+        Debug.Log("FINISH");
+    }
 }
