@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class Level : MonoBehaviour
+    public class LevelStartPoint : MonoBehaviour
     {
         public Transform StartPoint;
         

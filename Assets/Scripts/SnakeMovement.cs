@@ -35,7 +35,7 @@ public class SnakeMovement : MonoBehaviour
 
     private void Update()
     {
-        //if (Length > 0)
+        if (isDead == false)
             if (Input.GetMouseButtonDown(0))
               {
                  touchLastPos = mainCamera.ScreenToViewportPoint(Input.mousePosition);

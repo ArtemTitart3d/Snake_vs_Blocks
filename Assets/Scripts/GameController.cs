@@ -1,9 +1,19 @@
+using Assets.Scripts;
+using Assets.Scripts.ScriptableObjects;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+
+    [SerializeField] private LevelsList _levelsList;
+    [SerializeField] private SaveLoadSystem _saveLoadSystem;
+    [SerializeField] private GameObject _player;
+    private int _currentLevelIndex;
     public enum State
     {
         Playing,
@@ -47,4 +57,29 @@ public class GameController : MonoBehaviour
     }
     private const string LevelIndexKey = "LevelIndex";
     private const string ScoreIndexKey = "Score";
+
+    private void Awake()
+    {
+        _currentLevelIndex = _saveLoadSystem.GetLevelIndex();
+        _currentLevelIndex %= _levelsList.Levels.Length;
+        var level = Instantiate(_levelsList.Levels[_currentLevelIndex]);
+        _player.transform.position = level.GetComponentInChildren<LevelStartPoint>().StartPoint.position;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            LoadNextLevel();
+        }
+
+    }
+
+    private void LoadNextLevel()
+    {
+        _currentLevelIndex++;
+        _saveLoadSystem.SaveLevel(_currentLevelIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    
 }
