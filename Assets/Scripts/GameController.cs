@@ -13,7 +13,9 @@ public class GameController : MonoBehaviour
     [SerializeField] private LevelsList _levelsList;
     [SerializeField] private SaveLoadSystem _saveLoadSystem;
     [SerializeField] private GameObject _player;
-    private int _currentLevelIndex;
+    public int _currentLevelIndex;
+    public float _startLevelPoint;
+    public float _endLevelPoint;
     public enum State
     {
         Playing,
@@ -64,6 +66,8 @@ public class GameController : MonoBehaviour
         _currentLevelIndex %= _levelsList.Levels.Length;
         var level = Instantiate(_levelsList.Levels[_currentLevelIndex]);
         _player.transform.position = level.GetComponentInChildren<LevelStartPoint>().StartPoint.position;
+        _startLevelPoint = _player.transform.position.z;
+        _endLevelPoint = level.GetComponentInChildren<LevelFinishPoint>().FinishPoint.position.z;
     }
 
     private void Update()
