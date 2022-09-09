@@ -32,9 +32,10 @@ public class FoodController : MonoBehaviour
         if (other.TryGetComponent(out SnakeMovement Snake))
         {
             Snake.GrowLenght(FoodCount);
+            Snake.ScoreThePlayer(FoodCount);
             Destroy(HPText);
             Destroy(_food);
-
+            
         }
         
     }

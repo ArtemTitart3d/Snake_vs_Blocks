@@ -1,9 +1,6 @@
 using Assets.Scripts;
 using Assets.Scripts.ScriptableObjects;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro.EditorUtilities;
-using UnityEditor;
+using Screens;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,10 +9,14 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private LevelsList _levelsList;
     [SerializeField] private SaveLoadSystem _saveLoadSystem;
-    [SerializeField] private GameObject _player;
+    [SerializeField] private GameObject _snake;
+    [SerializeField] private ScreenManager Screens;
+    [SerializeField] private SnakeMovement Snake;
     public int _currentLevelIndex;
     public float _startLevelPoint;
     public float _endLevelPoint;
+    
+
     public enum State
     {
         Playing,
@@ -28,6 +29,7 @@ public class GameController : MonoBehaviour
     {
         if (CurrentState != State.Playing) return;
         CurrentState = State.Loss;
+        Screens.Lose();
 
         Debug.Log("Dead");
     }
@@ -35,6 +37,13 @@ public class GameController : MonoBehaviour
     {
         if (CurrentState != State.Playing) return;
         CurrentState = State.Won;
+        Screens.Win();
+        if (BestScore <= Snake.SnakeScore)
+        {
+            BestScore = Snake.SnakeScore;
+        }
+        
+
     }
     public int LevelIndex
     {
@@ -65,8 +74,8 @@ public class GameController : MonoBehaviour
         _currentLevelIndex = _saveLoadSystem.GetLevelIndex();
         _currentLevelIndex %= _levelsList.Levels.Length;
         var level = Instantiate(_levelsList.Levels[_currentLevelIndex]);
-        _player.transform.position = level.GetComponentInChildren<LevelStartPoint>().StartPoint.position;
-        _startLevelPoint = _player.transform.position.z;
+        _snake.transform.position = level.GetComponentInChildren<LevelStartPoint>().StartPoint.position;
+        _startLevelPoint = _snake.transform.position.z;
         _endLevelPoint = level.GetComponentInChildren<LevelFinishPoint>().FinishPoint.position.z;
     }
 
@@ -79,11 +88,21 @@ public class GameController : MonoBehaviour
 
     }
 
-    private void LoadNextLevel()
+    public void LoadNextLevel()
     {
         _currentLevelIndex++;
         _saveLoadSystem.SaveLevel(_currentLevelIndex);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     
+    public void RestartLevel()
+    {
+        ScreenManager.NoMenu = true;
+        _saveLoadSystem.SaveLevel(_currentLevelIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void OnApplicationQuit()
+    {
+        ScreenManager.NoMenu = false;
+    }
 }

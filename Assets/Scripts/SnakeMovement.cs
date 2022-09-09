@@ -1,6 +1,7 @@
-﻿using TMPro;
+﻿using Screens;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class SnakeMovement : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class SnakeMovement : MonoBehaviour
     public float Sensitivity = 10;
     public int Length = 1;
     private bool isDead = false;
+    [HideInInspector] public int SnakeScore = 0;
+    [SerializeField] private Text CurrentPlayerScoreText;
 
     public TextMeshPro PointsText;
 
@@ -102,4 +105,17 @@ public class SnakeMovement : MonoBehaviour
         Game.OnPlayerReachedFinish();
         Debug.Log("FINISH");
     }
+
+    public void ScoreThePlayer(int FoodCount)
+    {
+       SnakeScore += FoodCount;
+       CurrentPlayerScoreText.text = SnakeScore.ToString();
+    }
+
+    public void HitTheBlock(int BlockCount)
+    {
+        SnakeScore += BlockCount;
+        CurrentPlayerScoreText.text = SnakeScore.ToString();
+    }
+    
 }

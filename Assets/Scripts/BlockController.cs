@@ -36,6 +36,7 @@ public class BlockController : MonoBehaviour
             {
                 
                 Snake.ReduceLenght(BlockStrength);
+                Snake.HitTheBlock(BlockStrength);
                 Destroy(_block);
                 Destroy(BlockStrengthText);
             }
