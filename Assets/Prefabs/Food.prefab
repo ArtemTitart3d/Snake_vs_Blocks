@@ -238,6 +238,8 @@ MonoBehaviour:
   _foodCountMin: 1
   _foodCountMax: 10
   _food: {fileID: 7815172881234885999}
+  _amp: 0.25
+  _freq: 2
 --- !u!135 &1639573899615765115
 SphereCollider:
   m_ObjectHideFlags: 0
