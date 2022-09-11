@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject _snake;
     [SerializeField] private ScreenManager Screens;
     [SerializeField] private SnakeMovement Snake;
+    public AudioSource _beckgroundMusic;
     public int _currentLevelIndex;
     public float _startLevelPoint;
     public float _endLevelPoint;
@@ -30,6 +31,7 @@ public class GameController : MonoBehaviour
         if (CurrentState != State.Playing) return;
         CurrentState = State.Loss;
         Screens.Lose();
+        _beckgroundMusic.volume = 0.05f;
 
         Debug.Log("Dead");
     }
@@ -42,7 +44,8 @@ public class GameController : MonoBehaviour
         {
             BestScore = Snake.SnakeScore;
         }
-        
+        _beckgroundMusic.volume = 0.05f;
+
 
     }
     public int LevelIndex
@@ -77,6 +80,7 @@ public class GameController : MonoBehaviour
         _snake.transform.position = level.GetComponentInChildren<LevelStartPoint>().StartPoint.position;
         _startLevelPoint = _snake.transform.position.z;
         _endLevelPoint = level.GetComponentInChildren<LevelFinishPoint>().FinishPoint.position.z;
+        _beckgroundMusic.Play();
     }
 
     private void Update()

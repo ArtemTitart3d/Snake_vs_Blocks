@@ -11,6 +11,9 @@ public class SnakeMovement : MonoBehaviour
     private bool isDead = false;
     [HideInInspector] public int SnakeScore = 0;
     [SerializeField] private Text CurrentPlayerScoreText;
+    [SerializeField] private AudioSource EatSound;
+    [SerializeField] private AudioSource DeadSound;
+    [SerializeField] private AudioSource WinSound;
 
     public TextMeshPro PointsText;
 
@@ -67,6 +70,7 @@ public class SnakeMovement : MonoBehaviour
 
     public void GrowLenght(int FoodCount)
     {
+        EatSound.Play();
         Length += FoodCount;
         for (int i = 0; i < FoodCount; i++)
         {
@@ -77,7 +81,7 @@ public class SnakeMovement : MonoBehaviour
     }
     public void ReduceLenght(int BlockCount)
     {
-        
+            
             Length -= BlockCount;
             for (int i = 0; i < BlockCount; i++)
             {
@@ -98,11 +102,13 @@ public class SnakeMovement : MonoBehaviour
         }
         isDead = true;
         Game.OnPlayerDied();
+        DeadSound.Play();
         
     }
     public void Win()
     {
         Game.OnPlayerReachedFinish();
+        WinSound.Play();
         Debug.Log("FINISH");
     }
 

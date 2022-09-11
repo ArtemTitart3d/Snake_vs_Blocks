@@ -10,15 +10,18 @@ public class BlockController : MonoBehaviour
 {
     public TextMeshPro BlockStrengthText;
     private int BlockStrength;
+    private float BlockColor;
     [SerializeField] private int _blockStrengthMin;
     [SerializeField] private int _blockStrengthMax;
     [SerializeField] private GameObject _block;
-    
+    [SerializeField] private ParticleSystem _expload;
+    [SerializeField] private AudioSource _brakeBlock;
+
     void SetBlockCount()
     {
         BlockStrength = Random.Range(_blockStrengthMin, _blockStrengthMax + 1);
         BlockStrengthText.text = BlockStrength.ToString();
-        float BlockColor = (float)_blockStrengthMin / ((float)_blockStrengthMax + 1) * (float)BlockStrength;
+        BlockColor = (float)_blockStrengthMin / ((float)_blockStrengthMax + 1) * (float)BlockStrength;
         var BlockMaterial = _block.GetComponent<Renderer>().material;
         BlockMaterial.SetFloat("ColorCount", BlockColor);
     }
@@ -26,6 +29,8 @@ public class BlockController : MonoBehaviour
     private void Awake()
     {
         SetBlockCount();
+        var ExploadMaterial = _expload.GetComponent<Renderer>().material;
+        ExploadMaterial.SetFloat("ColorCount", BlockColor);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -37,13 +42,16 @@ public class BlockController : MonoBehaviour
                 
                 Snake.ReduceLenght(BlockStrength);
                 Snake.HitTheBlock(BlockStrength);
+                _expload.Play();
+                _brakeBlock.Play();
                 Destroy(_block);
                 Destroy(BlockStrengthText);
+                
+                
             }
             else
             {
-                Snake.Die();
-                Debug.Log(BlockStrength);
+                Snake.Die();    
             }
             
 
